@@ -84,13 +84,9 @@ ENV ZABBIX_HOSTNAME=docker-dind
        echo 'America/Vancouver' > /etc/timezone && \
        mkdir -p /assets/cron
 
-## Add Assets
-   ADD /assets /assets/
+### Files Addition
+  ADD install /
 
-## Add S6 Init System
-   ARG S6_OVERLAY_VERSION=v1.19.1.1 
-   RUN curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C /
-   ADD install/s6 /etc/s6/
+### Entrypoint Configuration
+  ENTRYPOINT ["/init"]
 
-## Entrypoint Configuration
-   ENTRYPOINT ["/init"]
