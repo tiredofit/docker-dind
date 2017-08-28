@@ -92,6 +92,9 @@ MAINTAINER Dave Conroy <dave at tiredofit dot ca>
 ### Files Addition
   ADD install /
 
+### Networking Configuration
+   EXPOSE 10050/TCP
+   
 ### Entrypoint Configuration
   ENTRYPOINT ["/init"]
 
