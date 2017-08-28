@@ -61,7 +61,7 @@ MAINTAINER Dave Conroy <dave at tiredofit dot ca>
        cd /tmp/ && \
        rm -rf /tmp/zabbix/ && \
        apk del --purge \
-               zabbix-build-dependencies
+               zabbix-build-dependencies \
                coreutils \
                libssl1.0
        
