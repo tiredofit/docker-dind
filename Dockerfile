@@ -2,7 +2,8 @@ FROM docker:dind
 MAINTAINER Dave Conroy <dave at tiredofit dot ca>
 
 ## Add a couple packages to make life easier
-ENV ZABBIX_HOSTNAME=docker-dind
+    ARG S6_OVERLAY_VERSION=v1.19.1.1 
+    ENV ZABBIX_HOSTNAME=docker-dind
 
 ### Zabbix Pre Installation steps
    RUN addgroup zabbix && \
@@ -20,16 +21,13 @@ ENV ZABBIX_HOSTNAME=docker-dind
        apk add \
             coreutils \
             libssl1.0  && \
-
-       rm -rf /var/cache/apk/* && \
        mkdir -p /assets/cron
 
   ARG MAJOR_VERSION=3.4
   ARG ZBX_VERSION=${MAJOR_VERSION}
 
 ### Zabbix Compilation
-   RUN apk update && \
-       apk add ${APK_FLAGS_DEV} --virtual zabbix-build-dependencies \
+   RUN apk add ${APK_FLAGS_DEV} --virtual zabbix-build-dependencies \
                alpine-sdk \
                automake \
                autoconf \
@@ -63,11 +61,10 @@ ENV ZABBIX_HOSTNAME=docker-dind
        cd /tmp/ && \
        rm -rf /tmp/zabbix/ && \
        apk del --purge \
-               zabbix-build-dependencies coreutils libssl1.0
+               zabbix-build-dependencies
+               coreutils \
+               libssl1.0
        
-
-   ADD /install/zabbix /etc/zabbix/
-
 ## Add other applications for ease of use
    RUN apk update && \
        apk add \
@@ -75,6 +72,7 @@ ENV ZABBIX_HOSTNAME=docker-dind
            curl \
            less \
            logrotate \
+           msmtp \
            nano \
            tzdata \
            vim \
@@ -82,8 +80,15 @@ ENV ZABBIX_HOSTNAME=docker-dind
        rm -rf /var/cache/apk/* && \
        cp -R /usr/share/zoneinfo/America/Vancouver /etc/localtime && \
        echo 'America/Vancouver' > /etc/timezone && \
-       mkdir -p /assets/cron
+       mkdir -p /assets/cron && \
 
+### MSMTP
+       rm -f /usr/sbin/sendmail && \
+       ln -s /usr/bin/msmtp /usr/sbin/sendmail && \
+
+### S6 Installation
+       curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C /
+   
 ### Files Addition
   ADD install /
 
