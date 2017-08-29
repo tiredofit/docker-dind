@@ -1,3 +1,8 @@
+## 2.2 2017-08-27 <dave at tiredofit dot ca>
+
+* Reduced Layers
+* Added SMTP Mailcatcher
+
 ## 2.1 2017-08-27 <dave at tiredofit dot ca>
 
 * File Sytem Reorganization
