@@ -1,3 +1,7 @@
+## 2.3 2017-09-02 <dave at tiredofit dot ca>
+
+* Move to Zabbix 3.4.1 instead of trunk
+
 ## 2.2 2017-08-27 <dave at tiredofit dot ca>
 
 * Reduced Layers
