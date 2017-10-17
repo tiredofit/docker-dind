@@ -7,8 +7,11 @@ LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
     ARG ZBX_VERSION=${MAJOR_VERSION}.1
     ARG ZBX_SOURCES=svn://svn.zabbix.com/tags/${ZBX_VERSION}/
 
-## Add a couple packages to make life easier
-    ENV ZABBIX_HOSTNAME=docker-dind
+    ENV ZABBIX_HOSTNAME=docker-dind \
+        ENABLE_CRON=TRUE \
+        ENABLE_SMTP=FALSE \
+        ENABLE_ZABBIX=TRUE
+
 
 ### Zabbix Pre Installation steps
     RUN addgroup zabbix && \
@@ -68,8 +71,9 @@ LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
               coreutils \
               zabbix-build-dependencies && \
 
+
 ### Install MailHog
-       apk --no-cache add --virtual mailhog-build-dependencies \
+      apk --no-cache add --virtual mailhog-build-dependencies \
                 go \
                 git \
                 musl-dev \
@@ -85,7 +89,8 @@ LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
        adduser -D -u 1025 mailhog && \
 
 ### Add Core Utils
-       apk add \
+       apk --no-cache upgrade && \
+       apk --no-cache add \
             bash \
             curl \
             less \
@@ -94,6 +99,7 @@ LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
             nano \
             tzdata \
             vim \
+            zabbix-agent \
             && \
        rm -rf /var/cache/apk/* && \
        rm -rf /etc/logrotate.d/acpid && \
@@ -107,10 +113,10 @@ LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
        mkdir -p /assets/cron
 
    ADD /install /
-   
+
 ### Networking Configuration
    EXPOSE 1025 8025 10050/TCP 
-   
+
 ### Entrypoint Configuration
    ENTRYPOINT ["/init"]
 
