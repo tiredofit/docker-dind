@@ -1,3 +1,7 @@
+## 2.5 2017-10-23 <dave at tiredofit dot ca>
+
+* Update S6 Overlay
+
 ## 2.4 2017-10-17 <dave at tiredofit dot ca>
 
 * Filesystem Cleanup/Update Scripts
