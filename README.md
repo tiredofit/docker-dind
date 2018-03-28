@@ -1,11 +1,5 @@
 All this image does it track docker:dnid, add zabbix, install s6 add a few packages for easier navigation and update the Docker Daemon to commence in experimental mode to support --squash --compress and prune functions and switch to overlay2 filesystem.
 
-[![Build Status](https://img.shields.io/docker/build/tiredofit/docker-dind.svg)](https://hub.docker.com/r/tiredofit/docker-dind)
-[![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/docker-dind.svg)](https://hub.docker.com/r/tiredofit/docker-dind)
-[![Docker Stars](https://img.shields.io/docker/stars/tiredofit/docker-dind.svg)](https://hub.docker.com/r/tiredofit/docker-dind)
-[![Docker Layers](https://images.microbadger.com/badges/image/tiredofit/docker-dind.svg)](https://microbadger.com/images/tiredofit/docker-dind)
-[![Image Size](https://img.shields.io/microbadger/image-size/tiredofit/docker-dind.svg)](https://microbadger.com/images/tiredofit/docker-dind)
-
 However, there are some environment variables:
 
 Below is the complete list of available options that can be used to customize your installation.

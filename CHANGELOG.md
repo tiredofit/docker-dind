@@ -1,3 +1,7 @@
+## 3.0 2018-03-26 <dave at tiredofit dot ca>
+
+* Based on Alpine 3.7 - Stop compiling Zabbix
+
 ## 2.5 2017-10-23 <dave at tiredofit dot ca>
 
 * Update S6 Overlay
